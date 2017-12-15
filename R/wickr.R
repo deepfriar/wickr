@@ -34,3 +34,12 @@ ascribe <- function(x, ...) {UseMethod("ascribe")}
 #' @return a character vector.
 #' @export
 kind <- function(x, ...) {UseMethod("kind")}
+
+#' Replace concatenated term and level with separate columns.
+#'
+#' The default method will unpack \code{x$xlevels}.
+#' @param x A model object.
+#' @param ... Ignored in the default implementation.
+#' @return a data.frame.
+#' @export
+unlevel <- function(x, ...) {UseMethod("unlevel")}

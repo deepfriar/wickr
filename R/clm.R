@@ -2,21 +2,20 @@
 #' @export
 sumer.clm <- function(x, ...) {sumer.default(x, ...)}
 
-#' @describeIn tidify clm
+#' @describeIn tidify uses coeftest
 #' @export
 tidify.clm <- function(x, ...) {broom::tidy(lmtest::coeftest(x))}
 
-#' @describeIn ascribe clm
+#' @describeIn ascribe residual df, AIC, BIC, link, and n
 #' @export
 ascribe.clm <- function(x, ...) {
-  z <- as.list(plyr::each(stats::df.residual, stats::AIC, stats::BIC)(x))
+  z <- as.list(plyr::each(df.residual=stats::df.residual, AIC=stats::AIC, BIC=stats::BIC, n=stats::nobs)(x))
 
   z$link <- x$link # icky use of object subsetting because there's not an accessor function available
-  z$n    <- stats::nobs(x)
 
   z
 }
 
-#' @describeIn kind clm
+#' @describeIn kind "ordinal"
 #' @export
 kind.clm <- function(x, ...) {"ordinal"}

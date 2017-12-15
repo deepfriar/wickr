@@ -38,16 +38,16 @@ The default method returns \code{class(x)}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{clm}: clm
+\item \code{clm}: "ordinal"
 
 \item \code{default}: The method for otherwise unhandled objects.
 
 \item \code{glm}: GLM
 
-\item \code{default}: OLS
+\item \code{default}: "OLS"
 
-\item \code{svymnlogit}: svymnlogit
+\item \code{svymnlogit}: "multinomial"
 
-\item \code{svyolr}: svyolr
+\item \code{svyolr}: "ordinal"
 }}
 

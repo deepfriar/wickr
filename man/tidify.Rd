@@ -40,16 +40,16 @@ The default method returns \code{\link[broom]{tidy}}, which will work for all th
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{clm}: clm
+\item \code{clm}: uses coeftest
 
 \item \code{default}: The method for otherwise unhandled objects.
 
 \item \code{glm}: GLM
 
-\item \code{lm}: OLS
+\item \code{lm}: uses \code{lmtest::coeftest} with chosen covariance matrix.
 
 \item \code{svymnlogit}: svymnlogit
 
-\item \code{svyolr}: svyolr
+\item \code{svyolr}: reaches into \code{survey} to get the right \code{vcov} for use in \code{lmtest::coeftest}
 }}
 
