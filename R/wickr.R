@@ -43,3 +43,15 @@ kind <- function(x, ...) {UseMethod("kind")}
 #' @return a data.frame.
 #' @export
 unlevel <- function(x, ...) {UseMethod("unlevel")}
+
+
+#' Finish the work started by \code{\link{unlevel}}.
+#'
+#' The default method will join \code{z} to \code{y} and return the relevant columns.
+#' @param x A model object. Typically ignored (used only for method dispatch).
+#' @param y Output of \code{\link{tidify}}.
+#' @param z Output of \code{\link{unlevel}}.
+#' @param ... Ignored in the default implementation.
+#' @return a tidy presentation of results with separate term and level columns.
+#' @export
+delevel <- function(x, y, z, ...) {UseMethod("delevel")}

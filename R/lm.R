@@ -10,9 +10,9 @@ tidify.lm <- function(x, vcov.=NULL, ...) {broom::tidy(lmtest::coeftest(x, vcov.
 
 #' @describeIn ascribe OLS
 #' @param vcov. a specification of the covariance matrix. See \code{\link[lmtest]{coeftest}} for details.
-#' @param vcov_name character. A name to call the covariance matrix. Default \code{deparse(substitute(vcov))}.
+#' @param vcov_name character. A name to call the covariance matrix. Default \code{deparse(substitute(vcov.))}.
 #' @export
-ascribe.lm <- function(x, vcov.=NULL, vcov_name=deparse(substitute(vcov.)), ...) {
+ascribe.lm <- function(x, vcov.=NULL, vcov_name=deparse(substitute(vcov.)), ...) { # will this work?
   z <- as.list(broom::glance(x))
 
   z$vcov <- if(is.function(vcov.)) {
@@ -26,4 +26,4 @@ ascribe.lm <- function(x, vcov.=NULL, vcov_name=deparse(substitute(vcov.)), ...)
 
 #' @describeIn kind "OLS"
 #' @export
-kind.default <- function(x, ...) {"OLS"}
+kind.lm <- function(x, ...) {"OLS"}

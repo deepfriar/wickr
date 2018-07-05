@@ -32,3 +32,7 @@ sumer.list <- function(x, .depth=0, .names=NULL, ...) {
 
   y
 }
+
+# @describeIn unlevel returns nothing
+# @export
+# unlevel.list <- function(x, ...) {data.frame(term=character(0), Lterm=character(0))}

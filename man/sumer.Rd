@@ -18,7 +18,7 @@
 
 \method{sumer}{default}(x, ...)
 
-\method{sumer}{gilez}(x, ...)
+\method{sumer}{gilez}(x, h_0 = 0, ...)
 
 \method{sumer}{glm}(x, ...)
 
@@ -38,6 +38,8 @@ sumer(x, ...)
 \item{x}{A model object.}
 
 \item{...}{Ignored in the default method.}
+
+\item{h_0}{numeric value of the pointlike null hypothesis. Default \code{0}.}
 
 \item{.depth}{integer. Levels from top of nested list of objects. Default \code{0}.}
 

@@ -1,6 +1,7 @@
 #' @describeIn sumer simulation results from \code{gilez}, which are always tall
+#' @param h_0 numeric value of the pointlike null hypothesis. Default \code{0}.
 #' @export
-sumer.gilez <- function(x, ...) {
+sumer.gilez <- function(x, h_0=0, ...) {
   w <- setdiff(colnames(x), c(".id", "value"))
 
   y <- plyr::ddply(x, w, function(u) {
@@ -9,7 +10,7 @@ sumer.gilez <- function(x, ...) {
     S <- c(estimate  = mean(z),
            stats::quantile(z, c(lower=0.025, upper=0.975)))
 
-    S["p.value"] <- 2 * min(mean(z < 0), mean(z > 0)) # TODO: what if mean is on the wrong side of zero
+    S["p.value"] <- 2 * min(mean(z < h_0), mean(z > h_0)) # TODO: what if mean is on the wrong side of the null
 
     S
   })

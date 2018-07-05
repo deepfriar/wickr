@@ -1,6 +1,6 @@
 #' @describeIn sumer clm
 #' @export
-sumer.clm <- function(x, ...) {sumer.default(x, ...)}
+sumer.clm <- function(x, ...) {sumer.default(x, ...)} # y tho
 
 #' @describeIn tidify uses coeftest
 #' @export

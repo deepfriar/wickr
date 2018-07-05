@@ -14,7 +14,8 @@ Imports:
     methods,
     plyr,
     reshape2,
-    stringr
+    stringr,
+    qdap
 Suggests:
     survey,
     svymnlogit

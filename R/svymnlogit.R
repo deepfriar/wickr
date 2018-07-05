@@ -16,7 +16,16 @@ tidify.svymnlogit <- function(x, ...) {
 
 #' @describeIn ascribe only the link function ("logit")
 #' @export
-ascribe.svymnlogit <- function(x, ...) {list(link="logit", n=attr(x, "n"))}
+ascribe.svymnlogit <- function(x, ...) {
+  if(!requireNamespace("svymnlogit")) {stop("You must install the svymnlogit package.")}
+
+  z <- as.list(plyr::each(df.residual=stats::df.residual, deviance=stats::deviance)(x))
+
+  z$link <- "logit"
+  z$n    <- nrow(stats::fitted(x)) # TODO: why isn't the nobs method available from svymnlogit
+
+  z
+}
 
 #' @describeIn kind "multinomial"
 #' @export

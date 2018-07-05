@@ -5,12 +5,11 @@ sumer.default <- function(x, ...) {
 
   z <- unlevel(x)
 
-  y <- plyr::join(y, z, "term")
+  # y <- plyr::join(y, z, "term")
 
-  y$term <- ifelse(is.na(y$Lterm), as.character(y$term), as.character(y$Lterm))
+  # y$term <- ifelse(is.na(y$Lterm), as.character(y$term), as.character(y$Lterm))
 
-  y <- y[, c(setdiff(colnames(y),   c("estimate", "std.error", "statistic", "p.value", "Lterm")),
-             intersect(colnames(y), c("estimate", "std.error", "statistic", "p.value")))]
+  y <- delevel(x, y, z)
 
   attributes(y)$sumer <- ascribe(x, ...)
 
@@ -47,4 +46,16 @@ unlevel.default <- function(x, ...) {
   w$term <- paste0(w$Lterm, w$level)
 
   as.data.frame(w)
+}
+
+#' @describeIn delevel The method for otherwise unhandled objects.
+#' @export
+delevel.default <- function(x, y, z, ...) {
+  y$level <- qdap::multigsub(z$term, z$level, y$term)
+  y$term  <- qdap::multigsub(z$term, z$Lterm, y$term)
+
+  y$level[y$level==y$term] <- NA
+
+  y[, c(setdiff(colnames(y),   c("estimate", "std.error", "statistic", "p.value", "Lterm")),
+        intersect(colnames(y), c("estimate", "std.error", "statistic", "p.value")))]
 }
