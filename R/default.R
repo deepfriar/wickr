@@ -1,7 +1,7 @@
 #' @describeIn sumer The method for otherwise unhandled objects.
 #' @export
-sumer.default <- function(x, ...) {
-  y <- tidify(x, ...)
+sumer.default <- function(x, margins=FALSE, ...) {
+  y <- tidify(x, margins, ...)
 
   z <- unlevel(x)
 
@@ -22,7 +22,16 @@ sumer.default <- function(x, ...) {
 
 #' @describeIn tidify The method for otherwise unhandled objects.
 #' @export
-tidify.default <- function(x, ...) {broom::tidy(x)}
+tidify.default <- function(x, margins=FALSE, ...) {
+  if(margins) {
+    y <- summary(margins::margins(x, ...))
+
+    ## will this do?
+    y <- `colnames<-`(y, c("term", "estimate", "std.error", "statistic", "p.value", "lower", "upper"))
+
+    y[, 1:5]
+  } else {broom::tidy(x)}
+}
 
 #' @describeIn ascribe The method for otherwise unhandled objects.
 #' @export
@@ -41,7 +50,7 @@ kind.default <- function(x, ...) {class(x)}
 #' @describeIn unlevel The method for otherwise unhandled objects.
 #' @export
 unlevel.default <- function(x, ...) {
-  w <- reshape2::melt(x$xlevels, value.name="level", level="term")
+  w <- reshape2::melt(as.list(x$xlevels), value.name="level", level="term")
 
   w$term <- paste0(w$Lterm, w$level)
 
@@ -51,8 +60,8 @@ unlevel.default <- function(x, ...) {
 #' @describeIn delevel The method for otherwise unhandled objects.
 #' @export
 delevel.default <- function(x, y, z, ...) {
-  y$level <- qdap::multigsub(z$term, z$level, y$term)
-  y$term  <- qdap::multigsub(z$term, z$Lterm, y$term)
+  y$level <- qdap::multigsub(as.character(z$term), as.character(z$level), y$term)
+  y$term  <- qdap::multigsub(as.character(z$term), as.character(z$Lterm), y$term)
 
   y$level[y$level==y$term] <- NA
 

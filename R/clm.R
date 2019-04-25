@@ -1,10 +1,14 @@
 #' @describeIn sumer clm
 #' @export
-sumer.clm <- function(x, ...) {sumer.default(x, ...)} # y tho
+sumer.clm <- function(x, margins=FALSE, ...) {sumer.default(x, margins=margins, ...)} # y tho
 
 #' @describeIn tidify uses coeftest
 #' @export
-tidify.clm <- function(x, ...) {broom::tidy(lmtest::coeftest(x))}
+tidify.clm <- function(x, margins=FALSE, ...) {
+  if(margins) {stop("The margins package doesn't support ordinal models of class clm from package ordinal.")}
+
+  broom::tidy(lmtest::coeftest(x))
+}
 
 #' @describeIn ascribe residual df, AIC, BIC, link, and n
 #' @export

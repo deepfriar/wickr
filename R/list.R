@@ -2,13 +2,13 @@
 #' @param .depth integer. Levels from top of nested list of objects. Default \code{0}.
 #' @param .names character. Vector of names to represent levels, from the top downward. Default \code{NULL}.
 #' @export
-sumer.list <- function(x, .depth=0, .names=NULL, ...) {
+sumer.list <- function(x, margins=FALSE, .depth=0, .names=NULL, ...) {
   ## don't let this sucker operate on arbitrary objects that are technically also lists
-  if(!methods::is(x, "list")) {return(NextMethod("sumer", .depth=.depth, .names=.names, ...))}
+  if(!methods::is(x, "list")) {return(NextMethod("sumer", .depth=.depth, .names=.names, margins=margins, ...))}
 
   ## sumer each element
   ## this will apply sumer.list recursively to elements that are lists
-  x <- lapply(x, sumer, .depth = .depth + 1, .names = .names[-1], ...)
+  x <- lapply(x, sumer, .depth = .depth + 1, .names = .names[-1], margins=margins, ...)
 
   ## Pick the name for the current level of depth out of the list
   ## If there isn't a name, call it "Level N"

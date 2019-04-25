@@ -2,20 +2,22 @@
 #'
 #' The default method mostly wraps functions from \code{\link[broom]{broom}}.
 #' @param x A model object.
+#' @param margins logical. Serve up marginal effects from package \code{\link[margins]{margins-package}}? Default \code{FALSE} (output regression coefficients).
 #' @param ... Ignored in the default method.
 #' @return A \code{data.frame} with an added attribute or three.
 #' @export
-sumer <- function(x, ...) {UseMethod("sumer")}
+sumer <- function(x, margins=FALSE, ...) {UseMethod("sumer")}
 
 #' Tabulate model results tidily.
 #'
 #' The default method returns \code{\link[broom]{tidy}}, which will work for all the most common models.
 #'
 #' @param x A model object.
+#' @param margins logical. Serve up marginal effects from package \code{\link[margins]{margins-package}}? Default \code{FALSE} (output regression coefficients).
 #' @param ... Ignored in the default method. Not passed to \code{tidy} in the default method.
 #' @return A \code{data.frame}.
 #' @export
-tidify <- function(x, ...) {UseMethod("tidify")}
+tidify <- function(x, margins=FALSE, ...) {UseMethod("tidify")}
 
 #' Model statistics.
 #'
@@ -55,3 +57,8 @@ unlevel <- function(x, ...) {UseMethod("unlevel")}
 #' @return a tidy presentation of results with separate term and level columns.
 #' @export
 delevel <- function(x, y, z, ...) {UseMethod("delevel")}
+
+#' @importFrom rlang .data
+#' @export
+rlang::.data
+

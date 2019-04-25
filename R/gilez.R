@@ -1,7 +1,9 @@
 #' @describeIn sumer simulation results from \code{gilez}, which are always tall
 #' @param h_0 numeric value of the pointlike null hypothesis. Default \code{0}.
 #' @export
-sumer.gilez <- function(x, h_0=0, ...) {
+sumer.gilez <- function(x, margins=FALSE, h_0=0, ...) {
+  if(margins) {warning("The margins argument doesn't apply to substantive effects already simulated and is ignored.")}
+
   w <- setdiff(colnames(x), c(".id", "value"))
 
   y <- plyr::ddply(x, w, function(u) {

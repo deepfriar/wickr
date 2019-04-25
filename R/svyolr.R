@@ -1,12 +1,13 @@
 #' @describeIn sumer svyolr
 #' @export
-sumer.svyolr <- function(x, ...) {sumer.default(x, ...)}
+sumer.svyolr <- function(x, margins=FALSE, ...) {sumer.default(x, margins=margins, ...)}
 
 #' @describeIn tidify reaches into \code{survey} to get the right \code{vcov} for use in \code{lmtest::coeftest}
 #' @export
-tidify.svyolr <- function(x, ...) {
+tidify.svyolr <- function(x, margins=margins, ...) {
   # require the survey namespace because it contains the correct vcov method
   if(!requireNamespace("survey")) {stop("You must install the survey package to work with svyolr objects.")}
+  if(margins) {stop("The margins package doesn't support ordinal models of class svyolr from package survey.")}
 
   # for unknown reasons, may return the wrong thing the first time it is called
   k <- broom::tidy(lmtest::coeftest(x))

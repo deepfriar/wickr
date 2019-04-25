@@ -1,17 +1,19 @@
 #' @describeIn sumer svymnlogit
 #' @export
-sumer.svymnlogit <- function(x, ...) {
-  if(requireNamespace("svymnlogit")) {return(NextMethod("sumer"))}
+sumer.svymnlogit <- function(x, margins=FALSE, ...) {
+  if(requireNamespace("svymnlogit")) {return(NextMethod("sumer", x, margins=margins, ...))}
 
   stop("You must install the svymnlogit package to work with svymnlogit objects.")
 }
 
 #' @describeIn tidify svymnlogit
 #' @export
-tidify.svymnlogit <- function(x, ...) {
-  if(requireNamespace("svymnlogit")) {return(summary(x))}
+tidify.svymnlogit <- function(x, margins=FALSE, ...) {
+  if(margins) {stop("The margins package doesn't handle survey multinomial logit models of class svymnlogit from package svymnlogit.")}
 
-  stop("You must install the svymnlogit package to work with svymnlogit objects.")
+  if(!requireNamespace("svymnlogit")) {stop("You must install the svymnlogit package to work with svymnlogit objects.")}
+
+  summary(x)
 }
 
 #' @describeIn ascribe only the link function ("logit")

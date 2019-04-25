@@ -1,10 +1,10 @@
 #' @describeIn sumer GLM
 #' @export
-sumer.glm <- function(x, ...) {sumer.default(x, ...)}
+sumer.glm <- function(x, margins=FALSE, ...) {sumer.default(x, margins=margins, ...)}
 
 #' @describeIn tidify GLM
 #' @export
-tidify.glm <- function(x, ...) {tidify.default(x, ...)}
+tidify.glm <- function(x, margins=FALSE, ...) {tidify.default(x, margins=margins, ...)} # TODO: why tidify.default(x, ...) and not NextMethod("tidify", x, ...) ? # why any function?
 
 #' @describeIn ascribe GLM
 #' @export

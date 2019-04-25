@@ -1,7 +1,9 @@
 #' @describeIn tidify AMCE objects from package cjoint
 #' @param .sdiff logical. Second differences? Default \code{FALSE}. Currently ignored, though.
 #' @export
-tidify.amce <- function(x, .sdiff=FALSE, ...) {
+tidify.amce <- function(x, margins=FALSE, .sdiff=FALSE, ...) {
+  if(margins) {warning("The margins argument doesn't apply to AMCE objects and is ignored.")}
+
   foo <- Reduce(cbind, x$cond.estimates)
   bar <- Reduce(cbind, x$estimates)
 

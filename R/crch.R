@@ -1,12 +1,15 @@
 #' @describeIn tidify uses coeftest
 #' @export
-tidify.crch <- function(x, ...) {
+tidify.crch <- function(x, margins=FALSE, ...) {
+  if(margins) {stop("The margins package doesn't support censored regression models of class crch from package crch.")}
+
   y <- broom::tidy(lmtest::coeftest(x))
 
   y$component <- stringr::str_extract(y$term, "^\\(.+\\)_")
   y$component <- ifelse(is.na(y$component), "(location)_", y$component)
   y$term      <- stringr::str_replace(y$term, stringr::fixed(y$component), "")
   y$component <- stringr::str_extract(y$component, "\\w+")
+  y$component <- stringr::str_replace(y$component, "location", "mean")
 
   y[, c("component", setdiff(colnames(y), "component"))]
 }

@@ -1,12 +1,22 @@
 #' @describeIn sumer OLS
 #' @param vcov. a specification of the covariance matrix. See \code{\link[lmtest]{coeftest}} for details.
 #' @export
-sumer.lm <- function(x, vcov.=NULL, ...) {sumer.default(x, vcov.=vcov., vcov_name=deparse(substitute(vcov.)), ...)}
+sumer.lm <- function(x, margins=FALSE, vcov.=NULL, ...) {
+  sumer.default(x, vcov.=vcov., vcov_name=deparse(substitute(vcov.)), ...)
+}
 
 #' @describeIn tidify uses \code{lmtest::coeftest} with chosen covariance matrix.
 #' @param vcov. a specification of the covariance matrix. See \code{\link[lmtest]{coeftest}} for details.
 #' @export
-tidify.lm <- function(x, vcov.=NULL, ...) {broom::tidy(lmtest::coeftest(x, vcov.=vcov.))}
+tidify.lm <- function(x, margins=FALSE, vcov.=NULL, ...) {
+  if(margins) {
+    vcm <- if(methods::is(vcov., "function")) {vcov.(x, ...)} else {vcov.}
+
+    NextMethod("tidify", x, margins=margins, vcov=vcm, ...)
+  } else {
+    broom::tidy(lmtest::coeftest(x, vcov.=vcov., ...), ...)
+  }
+}
 
 #' @describeIn ascribe OLS
 #' @param vcov. a specification of the covariance matrix. See \code{\link[lmtest]{coeftest}} for details.
