@@ -26,7 +26,7 @@
 \method{sumer}{list}(x, margins = FALSE, .depth = 0, .names = NULL,
   ...)
 
-\method{sumer}{lm}(x, margins = FALSE, vcov. = NULL, ...)
+\method{sumer}{lm}(x, margins = FALSE, vcov. = stats::vcov, ...)
 
 \method{sumer}{sumer}(x, margins = FALSE, ...)
 

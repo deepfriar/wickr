@@ -18,7 +18,7 @@
 \usage{
 \method{tidify}{amce}(x, margins = FALSE, .sdiff = FALSE, ...)
 
-\method{tidify}{betareg}(x, margins = FALSE, set = if
+\method{tidify}{betareg}(x, margins = FALSE, data = if
   (is.null(x$model)) {     margins::find_data(x) } else {     x$model },
   variables = NULL, ...)
 
@@ -30,7 +30,8 @@
 
 \method{tidify}{glm}(x, margins = FALSE, ...)
 
-\method{tidify}{lm}(x, margins = FALSE, vcov. = NULL, ...)
+\method{tidify}{lm}(x, margins = FALSE, vcov. = stats::vcov,
+  variables = NULL, ...)
 
 \method{tidify}{simpool}(x, ...)
 
@@ -47,9 +48,9 @@ tidify(x, margins = FALSE, ...)
 
 \item{.sdiff}{logical. Second differences? Default \code{FALSE}. Currently ignored, though.}
 
-\item{...}{Ignored in the default method. Not passed to \code{tidy} in the default method.}
+\item{...}{other arguments to \code{margins::\link[margins]{margins}} or \code{lmtest::coeftest}.}
 
-\item{set}{data.frame. Where is the data located? Defaults to data within the model object.}
+\item{data}{data.frame. Where is the data located? Defaults to data within the model object.}
 
 \item{variables}{character. Which terms to get effects for. Default \code{NULL} (\[everyone.gif\]).}
 
@@ -59,7 +60,7 @@ tidify(x, margins = FALSE, ...)
 A \code{data.frame}.
 }
 \description{
-The default method returns \code{\link[broom]{tidy}}, which will work for all the most common models.
+The default method returns \code{broom::\link[broom]{tidy}(lmtest::\link[lmtest]{coeftest}(x, ...))}.
 }
 \section{Methods (by class)}{
 \itemize{

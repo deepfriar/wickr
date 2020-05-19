@@ -10,14 +10,25 @@ sumer <- function(x, margins=FALSE, ...) {UseMethod("sumer")}
 
 #' Tabulate model results tidily.
 #'
-#' The default method returns \code{\link[broom]{tidy}}, which will work for all the most common models.
+#' The default method returns \code{broom::\link[broom]{tidy}(lmtest::\link[lmtest]{coeftest}(x, ...))}.
 #'
 #' @param x A model object.
 #' @param margins logical. Serve up marginal effects from package \code{\link[margins]{margins-package}}? Default \code{FALSE} (output regression coefficients).
-#' @param ... Ignored in the default method. Not passed to \code{tidy} in the default method.
+#' @param ... other arguments to \code{margins::\link[margins]{margins}} or \code{lmtest::coeftest}.
 #' @return A \code{data.frame}.
 #' @export
 tidify <- function(x, margins=FALSE, ...) {UseMethod("tidify")}
+
+#' Separate model component from name of term in MLEs where scale and shape are modeled.
+#'
+#' The default method is intended for models of the mean only and simply returns the input.
+#'
+#' @param x A model object. Dispatch is on this argument.
+#' @param y A data.frame put out by \code{\link{tidify}}.
+#' @param ... Ignored in the default method. Probably ignored in most other methods, too.
+#' @return A \code{data.frame}.
+#' @export
+encomp <- function(x, y, ...) {UseMethod("encomp")}
 
 #' Model statistics.
 #'

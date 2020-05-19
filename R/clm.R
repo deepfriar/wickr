@@ -7,7 +7,7 @@ sumer.clm <- function(x, margins=FALSE, ...) {sumer.default(x, margins=margins, 
 tidify.clm <- function(x, margins=FALSE, ...) {
   if(margins) {stop("The margins package doesn't support ordinal models of class clm from package ordinal.")}
 
-  broom::tidy(lmtest::coeftest(x))
+  broom::tidy(lmtest::coeftest(x, vcov. = ordinal:::vcov.clm(x)))
 }
 
 #' @describeIn ascribe residual df, AIC, BIC, link, and n
