@@ -23,8 +23,7 @@
 
 \method{sumer}{glm}(x, margins = FALSE, ...)
 
-\method{sumer}{list}(x, margins = FALSE, .depth = 0, .names = NULL,
-  ...)
+\method{sumer}{list}(x, margins = FALSE, ...)
 
 \method{sumer}{lm}(x, margins = FALSE, vcov. = stats::vcov, ...)
 
@@ -34,7 +33,7 @@
 
 \method{sumer}{svyolr}(x, margins = FALSE, ...)
 
-\method{sumer}{tbl}(x, margins = FALSE, ...)
+\method{sumer}{tbl}(x, margins = FALSE, .depth = 0, ...)
 
 sumer(x, margins = FALSE, ...)
 }
@@ -47,11 +46,9 @@ sumer(x, margins = FALSE, ...)
 
 \item{h_0}{numeric value of the pointlike null hypothesis. Default \code{0}.}
 
-\item{.depth}{integer. Levels from top of nested list of objects. Default \code{0}.}
-
-\item{.names}{character. Vector of names to represent levels, from the top downward. Default \code{NULL}.}
-
 \item{vcov.}{a specification of the covariance matrix. See \code{\link[lmtest]{coeftest}} for details.}
+
+\item{.depth}{integer. Levels from top of nested list of objects. Default \code{0}.}
 }
 \value{
 A \code{data.frame} with an added attribute or three.

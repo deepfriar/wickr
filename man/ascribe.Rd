@@ -29,8 +29,7 @@
 
 \method{ascribe}{glm}(x, ...)
 
-\method{ascribe}{lm}(x, vcov. = NULL,
-  vcov_name = deparse(substitute(vcov.)), ...)
+\method{ascribe}{lm}(x, vcov. = NULL, vcov_name = deparse(substitute(vcov.)), ...)
 
 \method{ascribe}{simpool}(x, ...)
 

@@ -18,9 +18,13 @@
 \usage{
 \method{tidify}{amce}(x, margins = FALSE, .sdiff = FALSE, ...)
 
-\method{tidify}{betareg}(x, margins = FALSE, data = if
-  (is.null(x$model)) {     margins::find_data(x) } else {     x$model },
-  variables = NULL, ...)
+\method{tidify}{betareg}(
+  x,
+  margins = FALSE,
+  data = if (is.null(x$model)) {     margins::find_data(x) } else {     x$model },
+  variables = NULL,
+  ...
+)
 
 \method{tidify}{clm}(x, margins = FALSE, ...)
 
@@ -30,8 +34,7 @@
 
 \method{tidify}{glm}(x, margins = FALSE, ...)
 
-\method{tidify}{lm}(x, margins = FALSE, vcov. = stats::vcov,
-  variables = NULL, ...)
+\method{tidify}{lm}(x, margins = FALSE, vcov. = stats::vcov, variables = NULL, ...)
 
 \method{tidify}{simpool}(x, ...)
 

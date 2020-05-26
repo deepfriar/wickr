@@ -1,7 +1,7 @@
 Package: wickr
 Type: Package
 Title: Summarises all
-Version: 0.2.8
+Version: 0.3.8
 Author: Gordon Arsenoff
 Maintainer: Gordon Arsenoff <arsenoff@princeton.edu>
 Description: Mostly wraps broom::tidy and broom::glance, except for models not handled in broom.
@@ -24,4 +24,4 @@ Imports:
 Suggests:
     survey,
     svymnlogit
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
