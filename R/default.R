@@ -7,10 +7,6 @@ sumer.default <- function(x, margins=FALSE, ...) {
 
   z <- unlevel(x)
 
-  # y <- plyr::join(y, z, "term")
-
-  # y$term <- ifelse(is.na(y$Lterm), as.character(y$term), as.character(y$Lterm))
-
   y <- delevel(x, y, z)
 
   attributes(y)$sumer <- ascribe(x, ...)

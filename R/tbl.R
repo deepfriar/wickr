@@ -23,7 +23,7 @@ sumer.tbl <- function(x, margins=FALSE, .depth=0,  ...) {
   x <- dplyr::group_by_if(x, function(i) {!is.list(i)})
 
   # dplyr::first(.data$exntry) is the key -- this is where the recursion really happens
-  y <- dplyr::mutate(x, entry = list(wickr::sumer(dplyr::first(.data$entry), margins=margins, .depth = .depth + 1, ...)))
+  y <- dplyr::mutate(x, entry = list(sumer(dplyr::first(.data$entry), margins=margins, .depth = .depth + 1, ...)))
   z <- dplyr::mutate(y, entry = list(purrr::flatten_dfc(attr(dplyr::first(.data$entry), "sumer"))))
 
   y <- tidyr::unnest(y, .data$entry)
