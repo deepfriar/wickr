@@ -58,7 +58,7 @@ The default method returns \code{as.list(\link[broom]{glance}(x))}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{amce}: the only
+\item \code{amce}: only number of respondents is clearly available
 
 \item \code{betareg}: residual df, AIC, BIC, link, and n
 

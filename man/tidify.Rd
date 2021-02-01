@@ -16,7 +16,7 @@
 \alias{tidify}
 \title{Tabulate model results tidily.}
 \usage{
-\method{tidify}{amce}(x, margins = FALSE, .sdiff = FALSE, ...)
+\method{tidify}{amce}(x, margins = FALSE, ...)
 
 \method{tidify}{betareg}(
   x,
@@ -48,8 +48,6 @@ tidify(x, margins = FALSE, ...)
 \item{x}{A model object.}
 
 \item{margins}{logical. Serve up marginal effects from package \code{\link[margins]{margins-package}}? Default \code{FALSE} (output regression coefficients).}
-
-\item{.sdiff}{logical. Second differences? Default \code{FALSE}. Currently ignored, though.}
 
 \item{...}{other arguments to \code{margins::\link[margins]{margins}} or \code{lmtest::coeftest}.}
 
