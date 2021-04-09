@@ -1,5 +1,9 @@
 #### helper functions ----
 unpack <- function(foo, outcome) {
+  if(length(foo) < 1) {
+    return(dplyr::tibble(term = character(0), Level = character(0)))
+  }
+
   foo <- dplyr::as_tibble(purrr::map(foo, list))
   foo <- dplyr::mutate(foo, dplyr::across(tidyselect::everything(), function(y) {
     list(dplyr::as_tibble(t(dplyr::first(y)), rownames = "Level"))
@@ -33,7 +37,12 @@ tidify.amce <- function(x, margins=FALSE, ...) {
 
   bar <- unpack(x$cond.estimates, "Difference")
   bar <- dplyr::anti_join(bar, foo, c("term", "Level"))
-  bar <- dplyr::mutate(bar, Group = stringr::str_remove(.data$Level, "^.*:"))
+
+  lev <- names(x$user.levels) # work around case where there are colons in the dang factor levels
+  lev <- lev[stringr::str_detect(lev, paste0("^", x$respondent.varying))]
+  lev <- paste0(lev, collapse = "|")
+
+  bar <- dplyr::mutate(bar, Group = stringr::str_remove(.data$Level, paste0("^(", lev, "):")))
   bar <- dplyr::mutate(bar, dplyr::across(c("term", "Level"), stringr::str_remove, pattern = ":.*$"))
   bar <- depack(bar, x$user.levels, "Group", "group")
 

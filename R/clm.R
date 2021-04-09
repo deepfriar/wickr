@@ -10,10 +10,13 @@ tidify.clm <- function(x, margins=FALSE, ...) {
   broom::tidy(lmtest::coeftest(x, vcov. = ordinal:::vcov.clm(x)))
 }
 
+# TODO: `encomp.clm` (because `ordinal::clm` provides separate location and scale formula args)
+
 #' @describeIn ascribe residual df, AIC, BIC, link, and n
 #' @export
 ascribe.clm <- function(x, ...) {
-  z <- as.list(plyr::each(df.residual=stats::df.residual, AIC=stats::AIC, BIC=stats::BIC, n=stats::nobs)(x))
+  z <- list(df.residual=stats::df.residual, AIC=stats::AIC, BIC=stats::BIC, n=stats::nobs)
+  z <- lapply(z, function(i) {i(x)})
 
   z$link <- x$link # icky use of object subsetting because there's not an accessor function available
 
