@@ -18,7 +18,7 @@ encomp.betareg <- function(x, y, ...) {
   y <- dplyr::mutate(y, component = ifelse(stringr::str_detect(.data$term, "^\\(phi"), "precision", "mean"))
   y <- dplyr::mutate(y, term      = stringr::str_remove(.data$term, "^\\(phi\\)_"))
   y <- dplyr::group_by(y, .data$component, .data$term)
-  y <- dplyr::select(y, .data$estimate, .data$std.error, .data$statistic, .data$p.value)
+  y <- suppressMessages(dplyr::select(y, .data$estimate, .data$std.error, .data$statistic, .data$p.value))
 
   y
 }
@@ -26,7 +26,8 @@ encomp.betareg <- function(x, y, ...) {
 #' @describeIn ascribe residual df, AIC, BIC, link, and n
 #' @export
 ascribe.betareg <- function(x, ...) {
-  z <- as.list(plyr::each(df.residual=stats::df.residual, AIC=stats::AIC, BIC=stats::BIC, n=stats::nobs)(x))
+  z <- list(df.residual=stats::df.residual, AIC=stats::AIC, BIC=stats::BIC, n=stats::nobs)
+  z <- lapply(z, function(i) {i(x)})
 
   z$link         <- x$link$mean$name
   z$`link (phi)` <- x$link$precision$name
@@ -34,13 +35,19 @@ ascribe.betareg <- function(x, ...) {
   z
 }
 
+# TODO is this an okay DRY way to remove pre-tidyverse dependencies?
 #' @describeIn unlevel \code{levels$full} replaces \code{xlevels}
 #' @export
 unlevel.betareg <- function(x, ...) {
-  w <- reshape2::melt(x$levels$full, value.name="level", level="term")
+  # w <- reshape2::melt(x$levels$full, value.name="level", level="term")
 
-  w$term <- paste0(w$Lterm, w$level)
-  w$term <- stringr::str_replace(w$term, stringr::fixed("(phi)_"), "phi | ")
+  # w$term <- paste0(w$Lterm, w$level)
 
-  as.data.frame(w)
+  # TODO: what did this line do? I can't figure it out
+  # w$term <- stringr::str_replace(w$term, stringr::fixed("(phi)_"), "phi | ")
+
+  # as.data.frame(w)
+
+  x$xlevels <- x$levels$full
+  NextMethod("unlevel", x, ...)
 }

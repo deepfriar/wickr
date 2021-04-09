@@ -16,7 +16,12 @@ tidify.lm <- function(x, margins=FALSE, vcov.=stats::vcov, variables=NULL, ...) 
 
     vcm <- if(methods::is(vcov., "function")) {vcov.(x, ...)} else {vcov.}
 
-    NextMethod("tidify", x, margins=margins, vcov=vcm, data=if(is.null(x$model)) {margins::find_data(x)} else {x$model}, variables=variables, ...)
+    NextMethod("tidify",
+               x,
+               margins=margins,
+               vcov=vcm,
+               data=if(is.null(x$model)) {margins::find_data(x)} else {x$model},
+               variables=variables, ...)
   } else {
     broom::tidy(lmtest::coeftest(x, vcov.=vcov., ...), ...)
   }
@@ -39,7 +44,6 @@ ascribe.lm <- function(x, vcov.=NULL, vcov_name=deparse(substitute(vcov.)), ...)
   z$r.squared     <- Z$r.squared
   z$adj.r.squared <- Z$adj.r.squared
   z$sigma         <- Z$sigma
-  # z$fstatistic    <- Z$fstatistic # NO DONT
 
   z
 }
